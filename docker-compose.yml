@@ -3,12 +3,27 @@ version: '3'
 services:
     swoft:
        image: swoft/swoft:latest
+       links:
+         - mysql:mysql
 #       build: ./
        ports:
-         - "80:80"
+         - "90:80"
+         - "92:82"
+         - "93:83"
        volumes:
          - ./:/var/www/swoft
-       stdin_open: true 
+         - /data/app/:/data/
+       stdin_open: true
        tty: true
        privileged: true
+#      容器启动时执行指令
        entrypoint: ["php", "/var/www/swoft/bin/swoft", "start"]
+    mysql:
+      image:  mysql:latest
+      ports:
+        - "3306:3306"
+      volumes:
+        - /data/conf/mysql/conf:/etc/mysql/conf.d
+        - /data/conf/mysql/data:/var/lib/mysql
+      environment:
+            MYSQL_ROOT_PASSWORD: 123456
