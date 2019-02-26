@@ -80,7 +80,7 @@ class TaskController
             if( !empty($data['tid']) ) $tData['id'] = $data['tid'];
             $tid = $JpTask->add( $tData );
 
-            $version  = $this->taskService->getUsers(['11']);
+            $version  = $this->taskService->set($data);
 
             $result = ['code'  =>  '200', 'msg'  =>  'success','errorMsg'=>$version];
             Db::commit();

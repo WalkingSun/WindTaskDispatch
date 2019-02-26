@@ -15,23 +15,24 @@ use Swoft\Core\ResultInterface;
 /**
  * The interface of demo service
  *
- * @method ResultInterface deferGetUsers(array $ids)
+ * @method ResultInterface deferSet(array $ids)
  */
 interface TaskInterface
 {
     /**
-     * @param array $ids
+     * @param array $data
      *
      * @return array
      *
      * <pre>
      * [
-     *    'uid' => [],
-     *    'uid2' => [],
+     *    'title' => '',
+     *    'content' => '',
+     *    'cron' => '',
      *    ......
      * ]
      * <pre>
      */
-    public function getUsers(array $ids);
+    public function set(array $data);
 
 }

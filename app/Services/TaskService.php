@@ -22,15 +22,15 @@ use Swoft\Core\ResultInterface;
 /**
  * Task servcie
  *
- * @method ResultInterface deferGetUsers(array $ids)
+ * @method ResultInterface deferSet(array $data)
  *
  * @Service()
  */
 class TaskService implements TaskInterface
 {
-    public function getUsers(array $ids)
+    public function set(array $data)
     {
-        return [$ids];
+        return $data;
     }
 
 
