@@ -79,8 +79,8 @@ class TaskController
             $tData = ['title'=>$data['title'],'content'=>$data['content'],'cron'=>$data['cron'],'createtime'=>date('Y-m-d H:i:s'),'isDelete'=>0];
             if( !empty($data['tid']) ) $tData['id'] = $data['tid'];
             $tid = $JpTask->add( $tData );
-
-            $version  = $this->taskService->set($data);
+            $tData['id'] = $tid;
+            $version  = $this->taskService->set($tData);
 
             $result = ['code'  =>  '200', 'msg'  =>  'success','errorMsg'=>$version];
             Db::commit();

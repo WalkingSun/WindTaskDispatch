@@ -13,6 +13,7 @@ services:
        volumes:
          - ./:/var/www/swoft
          - /data/app/:/data/
+         - /var/spool/cron/:/var/spool/cron/   #cron任务文件映射
        stdin_open: true
        tty: true
        privileged: true

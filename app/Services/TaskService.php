@@ -30,6 +30,39 @@ class TaskService implements TaskInterface
 {
     public function set(array $data)
     {
+        $cron = $data['cron'];
+
+        $cronFile = '/var/spool/cron/root';
+        $handle = fopen($cronFile,'r+');
+        $size = filesize ($cronFile);
+        $taskId = "TaskIdentification{$data['id']}";//任务标识
+        $str = " #{$taskId} \r\n {$data['cron']}\r\n #{$data['title']} {$data['content']}\r\n";
+
+        //文件无内容添加；有内容，已有数据修改，没有直接添加
+        if( !$size ){
+            fwrite($handle,$str);
+        }else{
+            $contents = fread($handle, $size);
+            $contentsList = explode("\r\n",$contents);
+            if( strpos($contents,$taskId)===false  ){
+                fwrite($handle,$contents."\r\n".$str);
+            }else{
+                var_dump(222);
+                foreach ($contentsList as $k=>$v){
+                    if( !(strpos($v,$taskId)===false) ){
+                        $contentsList[$k+1] = $data['cron'];
+                        $contentsList[$k+2] = " #".$data['title'].' '.$data['content'];
+                    }
+                }
+                fwrite($handle,implode("\r\n",$contentsList));
+            }
+        }
+
+        //协程执行shell命令
+//        \co::exec($cron);
+        
+        fclose($handle);
+
         return $data;
     }
 
