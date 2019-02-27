@@ -60,7 +60,7 @@ class TaskService implements TaskInterface
 
         //协程执行shell命令
 //        \co::exec($cron);
-        
+
         fclose($handle);
 
         return $data;
